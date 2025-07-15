@@ -18,16 +18,46 @@ function guardar(){
 
 
     credencial.user = document.getElementById('username').value;
-    credencial.password = document.getElementById('password').value;
+    credencial.password = document.getElementById('psw').value;
 
     syscall.pushearCredencial(credencial);
 
 }
 
 function generar(){
-    let random;
+    
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&()_-?/.,;:[]{}<>|';
+  
+  let result = '';
+
+  const charactersLength = characters.length;
+
+  for (let i = 0; i < 20; i++) {
+
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    
 }
 
+    document.getElementById('generada').value = result;
+
+  return result;
+
+}
+
+
+
+
+    
+
+
+
 function copiar(){
+
+    const text = document.getElementById('generada').value;
+    navigator.clipboard.writeText(text)
+      .then(() => console.log('Copied to clipboard!'))
+      .catch(err => console.error('Failed to copy:', err));
+
+
 
 }

@@ -10,8 +10,8 @@ class Credencial {
 
 class Sistema {
 
-    constructor(listaCredenciales){
-        this.listaCredenciales = listaCredenciales;
+    constructor(){
+        this.listaCredenciales = [];
     }
 
 
