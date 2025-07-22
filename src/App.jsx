@@ -1,6 +1,8 @@
 import { useState } from 'react'
-import viteLogo from '/vite.svg'
+
+
 import './App.css'
+
 
 function BotonGenerar(){
  
@@ -20,7 +22,8 @@ function BotonGenerar(){
 
     document.getElementById('generada').value = result;
 
-  return result;}
+  
+}
 
 
 
@@ -53,7 +56,7 @@ function BotonCopiar() {
   return (
     <div className="relative inline-block">
       {copied && (
-        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 bg-green-500 text-white text-xs px-2 py-1 rounded shadow z-10">
+        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 bg-green-500 text-white text-xs px-2 py-1 rounded shadow">
           Copied!
         </div>
       )}
@@ -76,8 +79,7 @@ function App() {
 
   return (
     <>
-    
-    <div id='background' className="fixed bg-top-left">
+        <div id='contenedorWrapper'>
 
           <div id='wrapper' className='shadow-xl'>
             
@@ -98,8 +100,10 @@ function App() {
             <BotonGenerar />
           
           </div>
-
-    </div>
+        
+        </div>
+      
+          
     
     </>
   )
