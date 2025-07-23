@@ -1,87 +1,48 @@
 
 import './App.css'
   
-function checkearPaginaActiva(){
-    let aux = true;
-    if (!document.hidden){
-        aux = false;
+import React, { useState, useEffect } from 'react';
+
+function Fondo() {
+  const [numbers, setNumbers] = useState([]);
+
+  // Fisher-Yates shuffle
+  function shuffleArray(arr) {
+    let shuffled = [...arr];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  }
+
+  useEffect(() => {
+    function handleVisibilityChange() {
+      if (!document.hidden) {
+        const newNumbers = shuffleArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
+        setNumbers(newNumbers);
+      }
     }
 
-    return aux;
+    // Initial shuffle
+    handleVisibilityChange();
 
-} 
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, []);
 
-
-
-function Numeros(){
-    
-    function generateNumbers(){
-
-    let numbers = ['1','2','3','4','5','6','7','8', '9', '0'];
-    
-    
-    while (checkearPaginaActiva()){
-
-        numbers.sort((a,b) => {
-
-
-            return ((a*Math.random())*100 - (b*Math.random())*100);
-
-
-        });
-
-
-         for(let elem of numbers){
-
-        let p = document.createElement('p');
-        let t = document.createTextNode(numbers[elem]);
-
-        p.appendChild(t);
-        
-        }     
-
-
-    }
-
-       
-
-    }
-
-    return (
-
-
-        <p></p>
-
-
-
-    )
-  
-
-}
-
-function Fondo(){
-
-
-         
   return (
-
-    <>
-
-
-      <div id='background' className="fixed">    
-
-            <Numeros></Numeros>    
-        
+    <div id='background'>
+      {numbers.map((num, index) => (
+        <div
+          key={index}
+          className='numContainer'
+        >
+          <p>{num}</p>
         </div>
-    </>
-  
-  
-  
-  )
-
-
-
-
+      ))}
+    </div>
+  );
 }
 
  

@@ -2,8 +2,11 @@
   width: 100%;
   height: 100vh;
   display: grid;
-  grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10% ;
+  
   grid-template-rows: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+  grid-template-columns: minmax(70px, auto) 1fr 1fr 1fr 1fr;
+  position: absolute;
+  z-index: 0;
 }
 
 #contenedorWrapper{
@@ -12,6 +15,16 @@
   height: 100vh;
   justify-content: center;
   align-items: center;
+  position: relative;
+  z-index: 1; 
+}
+
+.numContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 70px;
+  
 }
 
 #wrapper{
