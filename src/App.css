@@ -3,8 +3,8 @@
   height: 100vh;
   display: grid;
   
-  grid-template-rows: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
-  grid-template-columns: minmax(70px, auto) 1fr 1fr 1fr 1fr;
+  grid-template-rows: repeat(auto-fill, minmax(70px, 70px));
+  grid-template-columns: repeat(auto-fill, minmax(70px, 70px));
   position: absolute;
   z-index: 0;
 }
@@ -26,6 +26,8 @@
   font-size: 70px;
   
 }
+
+
 
 #wrapper{
   width: 500px;

@@ -1,14 +1,15 @@
-
 import './App.css'
-  
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 function Fondo() {
+  const backgroundRef = useRef(null);
   const [numbers, setNumbers] = useState([]);
+  const intervalRef = useRef(null);
 
-  // Fisher-Yates shuffle
+  const baseArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+
   function shuffleArray(arr) {
-    let shuffled = [...arr];
+    const shuffled = [...arr];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
@@ -16,29 +17,79 @@ function Fondo() {
     return shuffled;
   }
 
-  useEffect(() => {
-    function handleVisibilityChange() {
-      if (!document.hidden) {
-        const newNumbers = shuffleArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
-        setNumbers(newNumbers);
-      }
+  function getGridSize() {
+    const grid = backgroundRef.current;
+    if (!grid) return 0;
+    const styles = window.getComputedStyle(grid);
+    const rows = styles.getPropertyValue("grid-template-rows").split(" ").length;
+    const cols = styles.getPropertyValue("grid-template-columns").split(" ").length;
+    return rows * cols;
+  }
+
+  function updateNumbers() {
+    const totalCells = getGridSize();
+    let result = [];
+    while (result.length < totalCells) {
+      result = result.concat(shuffleArray(baseArray));
     }
+    setNumbers(result.slice(0, totalCells));
+  }
 
-    // Initial shuffle
-    handleVisibilityChange();
+  function startShuffling() {
+    if (!intervalRef.current) {
+      updateNumbers();
+      intervalRef.current = setInterval(updateNumbers, 900); // adjust interval as needed
+    }
+  }
 
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  function stopShuffling() {
+    clearInterval(intervalRef.current);
+    intervalRef.current = null;
+  }
+
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") {
+        startShuffling();
+      } else {
+        stopShuffling();
+      }
+    };
+
+    handleVisibility();
+    window.addEventListener("resize", updateNumbers);
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    return () => {
+      stopShuffling();
+      window.removeEventListener("resize", updateNumbers);
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
   }, []);
 
   return (
-    <div id='background'>
+    <div
+      id="background"
+      ref={backgroundRef}
+      >
       {numbers.map((num, index) => (
         <div
           key={index}
-          className='numContainer'
+          className="numContainer"
+          style={{
+            transition: "opacity 0.5s ease",
+            opacity: 1,
+          }}
         >
-          <p>{num}</p>
+          <p
+            style={{
+              color: 'green',
+              transition: "transform 0.5s ease",
+              transform: `scale(${1 + Math.random() * 0.1})`
+            }}
+          >
+            {num}
+          </p>
         </div>
       ))}
     </div>
