@@ -85,21 +85,19 @@ function App() {
             
             <h1>Password Generator!</h1>
             
-            <br />
+          </div>
              
               <div id='wrapped'>
                 
                 <input type="text" id='generada' className='text-center' disabled/>
                 
                 <BotonCopiar />
-              
+                
+                <BotonGenerar />  
               </div>
             
-            <br />
-        
-            <BotonGenerar />
-          
-          </div>
+            
+         
         
         </div>
       

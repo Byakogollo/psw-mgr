@@ -38,7 +38,7 @@ function Fondo() {
   function startShuffling() {
     if (!intervalRef.current) {
       updateNumbers();
-      intervalRef.current = setInterval(updateNumbers, 900); // adjust interval as needed
+      intervalRef.current = setInterval(updateNumbers, 500);
     }
   }
 
