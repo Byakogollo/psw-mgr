@@ -6,7 +6,7 @@ function Fondo() {
   const [numbers, setNumbers] = useState([]);
   const intervalRef = useRef(null);
 
-  const baseArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+        const newNumbers = shuffleArray(['A','B','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9','!','@','#','$','%','^','&','(',')','_','-','?','/',';',':','[',']','{','}','<','>','|',]);
 
   function shuffleArray(arr) {
     const shuffled = [...arr];
@@ -30,7 +30,7 @@ function Fondo() {
     const totalCells = getGridSize();
     let result = [];
     while (result.length < totalCells) {
-      result = result.concat(shuffleArray(baseArray));
+      result = result.concat(shuffleArray(newNumbers));
     }
     setNumbers(result.slice(0, totalCells));
   }
